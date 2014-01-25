@@ -1,0 +1,25 @@
+.user-photo {
+	height: 50px;
+}
+
+/* SmartGrid styles */
+.sg-list {
+	width: 100%;
+	margin: 2px 0 2px 0 !important;
+}
+.sg-list div p {
+	padding-top: 15px;
+}
+.sg-list img {
+	margin-right: 5px;
+}
+
+.sg-header form {
+	margin-bottom: 5px; 
+}
+.sg-container hr {
+	margin: 2px 0 2px 0;
+}
+.sg-container .pagination {
+	margin: 2px 0 0 0 !important;
+}

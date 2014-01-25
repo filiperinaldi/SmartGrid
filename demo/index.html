@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>SmartGrid</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Filipe Rinaldi">
+		<meta name="description" content="SmartGrid Demo Page">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css" type="text/css">
+		<link rel="stylesheet" href="css/desert.css" type="text/css">
+		<link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row-fluid">
+				<div class="hero-unit">
+					<h1>SmartGrid Demo Page</h1>
+					<p>SmartGrid is a JQuery plugin that presents data in different views (list or tiles) and supports basic features like pagination and search.</p>
+					<p>
+						<a class="btn btn-primary btn-large">
+						Go to GitHub's page
+						</a>
+					</p>
+				</div>
+				
+				<p>
+					<span class="label label-info">Note:</span>
+					Search and Pagination are under development.
+				</p>
+
+			</div>
+			<div class="row-fluid">
+				<div class="span6">
+					<div id="users-left"></div>
+					<a id="bt_add_item" class="btn btn-large" href="#">Add Item</a>
+					<a id="bt_rm_item" class="btn btn-large" href="#">Remove Item</a>
+					<h3>Code:</h3>
+<pre class="prettyprint">
+<strong>HTML:</strong>
+&lt;div id="users-left"&gt;&lt;/div&gt;
+					</pre>
+					<pre class="prettyprint">
+<strong>JavaScript:</strong>
+<xmp>
+$('#users-left').smartGrid({
+	viewMode : 'tiles',
+	orderByFields : [{'key' : 'name',
+			  'label' : 'Name'},
+			 {'key' : 'surname',
+			  'label' : 'Surname'}],
+	orderBy : 'name',
+	fnContent : fnContent,
+	items : [{ "name": "Max",
+		   "surname" : "Maximus",
+		   "email": "max@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Mia",
+		   "surname" : "Mulleard",
+		   "email": "mimi@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Philip",
+		   "surname" : "Fenix",
+		   "email": "phil@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Garry JJ",
+		   "surname" : "Rowst",
+		   "email": "garry@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Mary",
+		   "surname" : "Jane",
+		   "email": "mj@email.co.uk",
+		   "phone" : "01223 124556" }],
+		});
+
+$('#bt_add_item').click(function(){
+	var sg = $('#users-left').data('smartGrid'); 
+	sg.addItem({
+		"name" : "Harold",
+		"surname" : "Giraffe",
+		"email" : "harold@email.co.uk",
+		"phone" : "01223 777777"
+	});
+});
+
+$('#bt_rm_item').click(function(){
+	var sg = $('#users-left').data('smartGrid'); 
+	sg.removeItem({"key": "name",
+		       "value" : "Harold"});
+});
+		
+function fnContent(item, viewMode) {
+  if (viewMode == 'tiles') {
+    return '<li class="clearfix">\
+      <img src="user.png"  class="img-polaroid pull-left"><br>\
+      <div class="caption">\
+        <h4>'+item.name+' '+item.surname+'</h4>\
+        <p>\
+          <i class="icon-envelope"></i> '+item.email+' <br>\
+          <i class="icon-info-sign"></i> '+item.phone+'\
+        </p>\
+      </div>\
+      </li>'
+  } else {
+    return '<li class="sg-list">\
+    <div class="">\
+      <img src="user.png"  class="pull-left user-photo">\
+      <p>\
+        <strong class="span3">'+item.name+' '+item.surname+'</strong>\
+        <label class="pull-right">'+item.email+'</label>\
+      </p>\
+    </div>\
+    </li>'
+  }
+};
+</xmp>
+</pre>
+				</div>
+				<div class="span6">
+					<div id="users-right"></div>
+					<h3>Code:</h3>
+<pre class="prettyprint">
+<strong>HTML:</strong>
+&lt;div id="users-left"&gt;&lt;/div&gt;
+</pre>
+<pre class="prettyprint">
+<strong>JavaScript:</strong>
+<xmp>
+$('#users-right').smartGrid({
+	items : [{ "name": "Jone1",
+		   "surname" : "Dae",
+		   "email": "Jone1@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Jone4",
+		   "surname" : "Doe",
+		   "email": "Jone4@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Jone2",
+		   "surname" : "Dee",
+		   "email": "Jone2@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Jone3",
+		   "surname" : "Die",
+		   "email": "Jone3@email.co.uk",
+		   "phone" : "01223 124556" },
+		 { "name": "Jone5",
+		   "surname" : "Due",
+		   "email": "Jone5@email.co.uk",
+		   "phone" : "01223 124556" }],
+	fnContent : fnContent,
+});
+
+function fnContent(item, viewMode) {
+  if (viewMode == 'tiles') {
+    return '<li class="clearfix">\
+      <img src="user.png"  class="img-polaroid pull-left"><br>\
+      <div class="caption">\
+        <h4>'+item.name+' '+item.surname+'</h4>\
+        <p>\
+          <i class="icon-envelope"></i> '+item.email+' <br>\
+          <i class="icon-info-sign"></i> '+item.phone+'\
+        </p>\
+      </div>\
+      </li>'
+  } else {
+    return '<li class="sg-list">\
+    <div class="">\
+      <img src="user.png"  class="pull-left user-photo">\
+      <p>\
+        <strong class="span3">'+item.name+' '+item.surname+'</strong>\
+        <label class="pull-right">'+item.email+'</label>\
+      </p>\
+    </div>\
+    </li>'
+  }
+};
+</xmp>
+</pre>
+				</div>
+			</div>
+		</div>
+		<a href="https://github.com/filiperinaldi/SmartGrid"><img style="position: absolute; top: 0; right: 0; border: 0;" src="forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<script src="js/run_prettify.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="../jquery.smartGrid.js"></script>
+		<script type="text/javascript">
+			window.onload=function(){
+				function fnContent(item, viewMode) {
+					if (viewMode == 'tiles') {
+						return '<li class="clearfix">\
+								<img src="user.png"  alt="" class="img-polaroid pull-left"><br>\
+								<div class="caption">\
+									<h4>'+item.name+' '+item.surname+'</h4>\
+									<p>\
+										<i class="icon-envelope"></i> '+item.email+' <br>\
+										<i class="icon-info-sign"></i> '+item.phone+'\
+									</p>\
+								</div>\
+								</li>'
+					} else {
+						return '<li class="sg-list">\
+						<div>\
+							<img src="user.png"  alt="" class="pull-left user-photo">\
+							<p>\
+								<strong class="span3">'+item.name+' '+item.surname+' </strong>\
+								<label class="pull-right">'+item.email+'</label>\
+							</p>\
+						</div>\
+					</li>'
+					}
+				};
+
+				$('#users-left').smartGrid({
+					items : [{ "name": "Max", "surname" : "Maximus", "email": "max@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Mia", "surname" : "Mulleard", "email": "mimi@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Philip", "surname" : "Fenix", "email": "phil@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Garry JJ", "surname" : "Rowst", "email": "garry@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Mary", "surname" : "Jane", "email": "mj@email.co.uk", "phone" : "01223 124556" }],
+					viewMode : 'tiles',
+					orderByFields : [{'key' : 'name', 'label' : 'Name'},
+							 {'key' : 'surname', 'label' : 'Surname'}],
+					orderBy : 'name',
+					fnContent : fnContent,
+				});
+
+				$('#users-right').smartGrid({
+					items : [{ "name": "Jone1", "surname" : "Dae", "email": "Jone1@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Jone4", "surname" : "Doe", "email": "Jone4@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Jone2", "surname" : "Dee", "email": "Jone2@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Jone3", "surname" : "Die", "email": "Jone3@email.co.uk", "phone" : "01223 124556" },
+							{ "name": "Jone5", "surname" : "Due", "email": "Jone5@email.co.uk", "phone" : "01223 124556" }],
+					fnContent : fnContent,
+				});
+				
+				$('#bt_add_item').click(function(){
+					var sg = $('#users-left').data('smartGrid'); 
+					sg.addItem({
+						"name" : "Harold",
+						"surname" : "Giraffe",
+						"email" : "harold@email.com",
+						"phone" : "01223 77777777"
+					});
+				});
+
+				$('#bt_rm_item').click(function(){
+					var sg = $('#users-left').data('smartGrid'); 
+					sg.removeItem({"key": "name",
+								"value" : "Harold"});
+				});
+			};
+		</script>
+	</body>
+</html>
