@@ -6,10 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="Filipe Rinaldi">
 		<meta name="description" content="SmartGrid Demo Page">
-		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
-		<link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css" type="text/css">
-		<link rel="stylesheet" href="css/desert.css" type="text/css">
-		<link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+		<link rel="stylesheet" href="demo/bootstrap/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="demo/bootstrap/css/bootstrap-responsive.min.css" type="text/css">
+		<link rel="stylesheet" href="demo/css/desert.css" type="text/css">
+		<link rel="stylesheet" href="demo/css/stylesheet.css" type="text/css">
 	</head>
 	<body>
 		<div class="container">
@@ -92,7 +92,7 @@ $('#bt_rm_item').click(function(){
 function fnContent(item, viewMode) {
   if (viewMode == 'tiles') {
     return '<li class="clearfix">\
-      <img src="user.png"  class="img-polaroid pull-left"><br>\
+      <img src="demo/user.png"  class="img-polaroid pull-left"><br>\
       <div class="caption">\
         <h4>'+item.name+' '+item.surname+'</h4>\
         <p>\
@@ -104,7 +104,7 @@ function fnContent(item, viewMode) {
   } else {
     return '<li class="sg-list">\
     <div class="">\
-      <img src="user.png"  class="pull-left user-photo">\
+      <img src="demo/user.png"  class="pull-left user-photo">\
       <p>\
         <strong class="span3">'+item.name+' '+item.surname+'</strong>\
         <label class="pull-right">'+item.email+'</label>\
@@ -153,7 +153,7 @@ $('#users-right').smartGrid({
 function fnContent(item, viewMode) {
   if (viewMode == 'tiles') {
     return '<li class="clearfix">\
-      <img src="user.png"  class="img-polaroid pull-left"><br>\
+      <img src="demo/user.png"  class="img-polaroid pull-left"><br>\
       <div class="caption">\
         <h4>'+item.name+' '+item.surname+'</h4>\
         <p>\
@@ -165,7 +165,7 @@ function fnContent(item, viewMode) {
   } else {
     return '<li class="sg-list">\
     <div class="">\
-      <img src="user.png"  class="pull-left user-photo">\
+      <img src="demo/user.png"  class="pull-left user-photo">\
       <p>\
         <strong class="span3">'+item.name+' '+item.surname+'</strong>\
         <label class="pull-right">'+item.email+'</label>\
@@ -179,16 +179,16 @@ function fnContent(item, viewMode) {
 				</div>
 			</div>
 		</div>
-		<a href="https://github.com/filiperinaldi/SmartGrid"><img style="position: absolute; top: 0; right: 0; border: 0;" src="forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-		<script src="js/run_prettify.js"></script>
+		<a href="https://github.com/filiperinaldi/SmartGrid"><img style="position: absolute; top: 0; right: 0; border: 0;" src="demo/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<script src="demo/js/run_prettify.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="../jquery.smartGrid.js"></script>
+		<script src="jquery.smartGrid.js"></script>
 		<script type="text/javascript">
 			window.onload=function(){
 				function fnContent(item, viewMode) {
 					if (viewMode == 'tiles') {
 						return '<li class="clearfix">\
-								<img src="user.png"  alt="" class="img-polaroid pull-left"><br>\
+								<img src="demo/user.png"  alt="" class="img-polaroid pull-left"><br>\
 								<div class="caption">\
 									<h4>'+item.name+' '+item.surname+'</h4>\
 									<p>\
@@ -200,7 +200,7 @@ function fnContent(item, viewMode) {
 					} else {
 						return '<li class="sg-list">\
 						<div>\
-							<img src="user.png"  alt="" class="pull-left user-photo">\
+							<img src="demo/user.png"  alt="" class="pull-left user-photo">\
 							<p>\
 								<strong class="span3">'+item.name+' '+item.surname+' </strong>\
 								<label class="pull-right">'+item.email+'</label>\
