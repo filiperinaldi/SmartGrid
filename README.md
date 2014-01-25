@@ -132,4 +132,4 @@ Example:
     var sg = $('#component').data('smartGrid'); 
     sg.setViewMode('tiles');
 
-  [1]: http://filiperinaldi.github.io/smartgrid/demo
+  [1]: http://filiperinaldi.github.io/SmartGrid
