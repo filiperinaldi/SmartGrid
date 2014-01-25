@@ -90,7 +90,7 @@ Parameters:
 > **key** - Field name used to order the elements.
 
 Return:
-> **true** - If key is a valid entry in the 'orderByFields' option.
+> **true** - If key is a valid entry in the 'orderByFields' option.<br>
 > **false** - If key is not a valid entry in the 'orderByFields' option.
 
 Example:
@@ -124,7 +124,7 @@ Parameters:
 > **mode** - One of the valid view modes: 'list' or 'tiles'.
 
 Return:
-> **true** - Returns true if mode is valid.
+> **true** - Returns true if mode is valid.<br>
 > **false** - Returns false if mode is invalid.
 
 Example:
