@@ -25,9 +25,10 @@ This [demo][1] page shows some examples of Smart Grid.
 Getting Started
 ---------------
 
-```javascript
+```html
 <div id="component"></div>
-
+```
+```javascript
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="jquery.smartgrid.min.js"></script>
 <script>
@@ -42,7 +43,12 @@ $('#component').smartGrid({
                 name : Mary,
                 surname : Doe,
                 email: mary.doe@email.com,
-            }]
+            }],
+    fnContent : function(item, viewMode){
+        var html;
+        /* Your code here to create the item's HTML view */
+        return html;
+    }
 });
 </script>
 ```
@@ -53,7 +59,7 @@ Options
 | Name | Default | Description |
 |--------|---------|-------------|
 |currentPage|`1`| Set default page|
-|fnContent|`null`|Callback used to fill in the item|
+|fnContent|`null`|Callback used to create item's HTML view. The function receives the 'item' and current view mode. Example: function fnContent(item, viewMode){...} |
 |items|`[]`|List of items where each item is a JSON structure |
 |itemsPerPage|`'all'`| Number of items per page. The parameter can be a number or `'all'`|
 |orderBy|`null`| When set to `null`, the Order elements using the field |
