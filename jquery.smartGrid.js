@@ -1,17 +1,18 @@
 ﻿/* Smart Grid 
- * Author: Filipe Rinaldi
- * Copyright 2014
+ * Author: Filipe Rinaldi (c) 2014
+ * https://github.com/filiperinaldi/SmartGrid
  */
 (function ($, undefined) {
 
 	var defaults = {
-	    items: [],
-	    orderBy: null,
-	    orderByFields: null,
-	    viewMode: 'list',
-	    currentPage: 0,
-	    itemsPerPage: 'all',
-	    fnContent: null,
+		currentPage: 0,
+		fnContent: null,
+		items: [],
+		itemsPerPage: 'all',
+		orderBy: null,
+		orderByFields: null,
+		searchExcludeFields: [],
+		viewMode: 'list'
 	};
 
 	var sg = $.smartGrid = {version: '0.1'};
@@ -33,7 +34,7 @@
 		 * Attributes
 		 */
 		this.items = options.items;
-		delete options.items;
+		this.hiddenItems = [];
 		this.options = options;
 
 		/* 
@@ -44,11 +45,17 @@
 		this.removeItem = removeItem;
 		this.search = search;
 		this.setViewMode = setViewMode;
-		this.sort = sort;
 		this.update = update;
 
+		/*
+		 * Private methods
+		 */
+		this._isValidSearchKey = _isValidSearchKey;
+		this._sort = _sort;
+
+		delete options.items;
 		if (this.options.orderBy)
-			this.sort();		
+			this._sort();
 
 		/* 
 		 * Create HTML
@@ -160,15 +167,48 @@
 			return true;
 		};
 
+		function _isValidSearchKey(key) {
+			for (var i=0; i<this.options.searchExcludeFields.length; i++) {
+				if (key === this.options.searchExcludeFields[i])
+					return false;
+			}
+			return true;
+		}
+
 		function search(text) {
-;;;			console.debug(text);
+			text = $.trim(text);
+			/* Move hidden items into "items" */
+			this.items = this.items.concat(this.hiddenItems);
+			/* Then,clear "hiddenItems" */
+			this.hiddenItems.length = 0;
+			if (text) {
+				var i = this.items.length;
+				while (i--) {
+					var item = this.items[i];
+					var found = false;
+					/* Search all entries in the item */
+					for (var key in item) {
+						if (this._isValidSearchKey(key)) {
+							if (item[key].toLowerCase().indexOf(text.toLowerCase()) != -1) {
+								found = true;
+								break;
+							}
+						}
+					}
+					if (!found) {
+						this.hiddenItems.push(this.items[i]);
+						this.items.splice(i,1);
+					}
+				}
+			}
+			this._sort();
 			this.update();
 		}
 
 		function addItem(item) {
 			this.items.push(item);
 			if (this.options.orderBy)
-				this.sort();
+				this._sort();
 			this.update();	
 		}
 
@@ -191,7 +231,7 @@
 			for (var i=0; i<this.options.orderByFields.length; i++) {
 				if (this.options.orderByFields[i].key === key) {
 					this.options.orderBy = key;
-					this.sort();
+					this._sort();
 					this.update();
 					return true;
 				}
@@ -199,8 +239,10 @@
 			return false;
 		}
 
-		function sort() {
+		function _sort() {
 			var key = this.options.orderBy;
+			if (key === null)
+				return;
 			this.items.sort(function(a, b){
 				//TODO: Add more cleverness to sort dates, numbers, case-insensitive, etc
 				if (a[key] < b[key])

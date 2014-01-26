@@ -59,6 +59,7 @@ Options
 |orderBy|`null`| When set to `null`, the Order elements using the field |
 |orderByFields|`[]`| Fields used to order the items. Format: {key: *'field name'*, label: *'Label'*}.<br>Example: {key:'name', label:'Name'}|
 |viewMode|`'list'`| One of the following supported view modes: `'list'`, `'tiles'`|
+|searchExcludeFields|`[]`| List of field names to exclude during the search. Each entry in this array is a string. This option is used to exclude fields like 'id' or any other metadata|
 ||||
 
 Methods
@@ -120,6 +121,22 @@ sg.removeItem({
     "key" : "name",
 	"value" : "Harold",
 });
+```
+
+### search(text)
+Summary:
+> Filter items based on the parameter "text". This function is used by the "Search" input embedded in the component's header but can also be called directly. The search is case-insensitive.
+
+Parameters:
+> **text** - A string containing the keyword to search/filter.
+
+Return:
+> None.
+
+Example:
+```javascript
+var sg = $('#component').data('smartGrid');
+sg.search('arold');
 ```
 
 ### setViewMode(mode)
