@@ -145,6 +145,22 @@ var sg = $('#component').data('smartGrid');
 sg.search('arold');
 ```
 
+### setPage(page)
+Summary:
+> Set current page.
+
+Parameters:
+> **page** - Page index to show which can be a number between 0 (inclusive) and the number of items not hidden by the search/filter. "page" can also be `'next'` or `'prev'` which will respectively increment and decrement the current page index. Note: page index parameter starts from "0" but the pagination widget (HTML) the user sees starts from 1.
+
+Return:
+> None.
+
+Example:
+```javascript
+var sg = $('#component').data('smartGrid');
+sg.setPage(0); /* Show Page 1 */
+```
+
 ### setViewMode(mode)
 Summary:
 > Set the view mode.

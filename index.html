@@ -23,12 +23,6 @@
 						</a>
 					</p>
 				</div>
-				
-				<p>
-					<span class="label label-info">Note:</span>
-					Pagination is under development.
-				</p>
-
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
@@ -52,6 +46,7 @@ $('#users-left').smartGrid({
 	orderBy : 'name',
 	fnContent : fnContent,
 	searchExcludeFields : ['email'],
+	itemsPerPage : 4,
 	items : [{ "name": "Max",
 		   "surname" : "Maximus",
 		   "email": "max@email.co.uk",
@@ -222,6 +217,7 @@ function fnContent(item, viewMode) {
 							 {'key' : 'surname', 'label' : 'Surname'}],
 					orderBy : 'name',
 					searchExcludeFields : ['email'],
+					itemsPerPage : 4,
 					fnContent : fnContent,
 				});
 

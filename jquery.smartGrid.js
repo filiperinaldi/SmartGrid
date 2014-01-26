@@ -44,6 +44,7 @@
 		this.orderBy = orderBy;
 		this.removeItem = removeItem;
 		this.search = search;
+		this.setPage = setPage;
 		this.setViewMode = setViewMode;
 		this.update = update;
 
@@ -51,6 +52,7 @@
 		 * Private methods
 		 */
 		this._isValidSearchKey = _isValidSearchKey;
+		this._paginationUpdate = _paginationUpdate;
 		this._sort = _sort;
 
 		delete options.items;
@@ -140,12 +142,82 @@
 			sg.search(text);
 		});
 
+		this.widgetPagination = element.find('ul').eq(1);
+		this.widgetPagination.data('smartGrid', this);
+		this._paginationUpdate();
+		this.widgetPagination.click(function (event){
+			var sg = $(this).data('smartGrid');
+			var target = event.target;
+			var page = $(target).data('page');
+			sg.setPage(page);
+		})
+
 		/*
 		 * Methods implementation
 		 */
+		function setPage(page) {
+			if (this.options.itemsPerPage == 'all')
+				return;
+			if (page === 'next') {
+				this.options.currentPage++;
+			} else if (page === 'prev') {
+				this.options.currentPage--;
+			} else if (_isInteger(page)) {
+				this.options.currentPage = page;
+			} else {
+;;;				throw "Error: Invalid page option";
+				return;
+			}
+
+			/* Check limits */
+			if (this.options.currentPage >= this.pageCount)
+				this.options.currentPage = this.pageCount - 1;
+			else if (this.options.currentPage < 0)
+				this.options.currentPage = 0;
+
+			this._paginationUpdate(); /* TODO: This is overkill. We should update the active/disabled directly */
+			this.update();
+		}
+
+		function _paginationUpdate() {
+			var itemsPerPage;
+			if (this.options.itemsPerPage === 'all')
+				itemsPerPage = this.items.length + this.hiddenItems.length;
+			else
+				itemsPerPage = this.options.itemsPerPage;
+			this.pageCount = Math.ceil(this.items.length / itemsPerPage);
+			this.widgetPagination.empty();
+			var selection="";
+			/* Create the 'previous' entry */
+			if (this.options.currentPage == 0)
+				selection = "disabled"
+			$('<li class="'+selection+'"><a data-page="prev" href="#">&laquo;</a></li>').appendTo(this.widgetPagination);
+			/* Create number items */
+			for (var i=0; i<this.pageCount; i++) {
+				if (i == this.options.currentPage)
+					selection="active";
+				else
+					selection="";
+				$('<li class="'+selection+'"><a data-page="'+i+'" href="#">'+(i+1)+'</a></li>').appendTo(this.widgetPagination);
+			}
+			/* Create the 'next' entry */
+			if (this.options.currentPage == (this.pageCount - 1))
+				selection = "disabled"
+			$('<li class="'+selection+'"><a data-page="next" href="#">&raquo;</a></li>').appendTo(this.widgetPagination);
+		}
+
 		function update() {
+			if (this.options.itemsPerPage === 'all') {
+				var first = 0;
+				var last = this.items.length - 1;
+			} else {
+				var first = this.options.itemsPerPage * this.options.currentPage;
+				var last = first + this.options.itemsPerPage - 1;
+				if (last >= this.items.length)
+					last = this.items.length - 1;
+			}
 			this.contents.empty();
-			for (var i=0; i<this.items.length; i++) {
+			for (var i=first; i<=last; i++) {
 				var item = this.items[i]
 				$(this.options.fnContent(item, this.options.viewMode)).appendTo(this.contents);
 			}
@@ -209,6 +281,7 @@
 			this.items.push(item);
 			if (this.options.orderBy)
 				this._sort();
+			this._paginationUpdate();
 			this.update();	
 		}
 
@@ -222,8 +295,10 @@
 					this.items.splice(i, 1);
 				}
 			}
-			if (removed.length != 0)
+			if (removed.length != 0) {
+				this._paginationUpdate();
 				this.update();
+			}
 			return removed;
 		}
 
@@ -253,5 +328,9 @@
 					return 0;
 			})
 		}
+
+		function _isInteger(value) {
+			return ((typeof value !== 'number') || (value % 1 !== 0)) ? false : true;
+		};
 	};
 })(jQuery);
