@@ -25,7 +25,7 @@ This [demo][1] page shows some examples of Smart Grid.
 Getting Started
 ---------------
 
-```
+```javascript
 <div id="component"></div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -76,7 +76,7 @@ Return:
 
 Example:
 
-```
+```javascript
 var sg = $('#component').data('smartGrid'); 
 sg.addItem({
     "name" : "Harold",
@@ -98,7 +98,7 @@ Return:
 > **false** - If key is not a valid entry in the 'orderByFields' option.
 
 Example:
-```
+```javascript
 var sg = $('#component').data('smartGrid');
 sg.orderBy('surname');
 ```
@@ -114,7 +114,7 @@ Return:
 > list of items removed.
 
 Example:
-```
+```javascript
 var sg = $('#component').data('smartGrid'); 
 sg.removeItem({
     "key" : "name",
@@ -134,7 +134,7 @@ Return:
 > **false** - Returns false if mode is invalid.
 
 Example:
-```
+```javascript
 var sg = $('#component').data('smartGrid'); 
 sg.setViewMode('tiles');
 ```
